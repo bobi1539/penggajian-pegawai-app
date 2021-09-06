@@ -14,10 +14,7 @@
     <div class="row">
         <div class="col-lg-6">
             @if (session()->has('messageSuccess'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('messageSuccess') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <div id="flash-data-success" data-flashdata="{{ session('messageSuccess') }}"></div>
             @endif
             @error('basic_salary')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -58,7 +55,7 @@
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-sm btn-outline-secondary"
-                                            onclick="return confirm('Yakin ingin menghapus data?')">
+                                            onclick="return confirm('Yakin data ingin dihapus?')">
                                             <span data-feather="trash"></span>
                                         </button>
                                     </form>

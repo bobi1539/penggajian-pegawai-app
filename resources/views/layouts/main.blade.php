@@ -37,9 +37,6 @@
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
     </script>
 
-    {{-- js dashboard --}}
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-
     {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
@@ -47,6 +44,15 @@
     {{-- data tabeles --}}
     <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+
+    {{-- sweet alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- js dashboard --}}
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+
+    {{-- myscript --}}
+    <script src="{{ asset('js/myscript.js') }}"></script>
 </body>
 
 </html>
