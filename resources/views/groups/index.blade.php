@@ -19,6 +19,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @error('basic_salary')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
+            @error('job_class')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -66,14 +78,43 @@
                     <h5 class="modal-title" id="addModalLabel">Tambah Data Golongan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-dark">Simpan</button>
-                </div>
+                <form action="/groups" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="job_class" class="form-label">Golongan</label>
+                            <input name="job_class" type="text" class="form-control" id="job_class"
+                                value="{{ old('job_class') }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="basic_salary" class="form-label">Gaji Pokok</label>
+                            <input name="basic_salary" type="text" class="form-control" id="basic_salary"
+                                value="{{ old('basic_salary') }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script>
+        const basicSalary = document.getElementById('basic_salary');
+
+        basicSalary.addEventListener('keyup', function() {
+            let val = this.value;
+            val = val.replace(/[^0-9\.]/g, '');
+
+            if (val != "") {
+                valArr = val.split('.');
+                valArr[0] = (parseInt(valArr[0], 10)).toLocaleString();
+                val = valArr.join('.');
+            }
+
+            this.value = val;
+        });
+    </script>
 @endsection

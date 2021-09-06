@@ -19,7 +19,7 @@ class GroupController extends Controller
     {
         return view('groups.index', [
             'title' => 'Golongan',
-            'groups' => Group::where('is_delete', 0)->get()
+            'groups' => Group::all()
         ]);
     }
 
@@ -41,7 +41,15 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validatedData = $request->validate([
+            'job_class' => ['required', 'max:255', 'unique:groups'],
+            'basic_salary' => ['required']
+        ]);
+
+        $validatedData['basic_salary'] = implode(explode(',', $request->basic_salary));
+        Group::create($validatedData);
+        return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil ditambahkan');
     }
 
     /**
@@ -86,10 +94,11 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        Group::where('id', $group->id)->update([
-            'is_delete' => 1,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        // Group::where('id', $group->id)->update([
+        //     'is_delete' => 1,
+        //     'updated_at' => date('Y-m-d H:i:s')
+        // ]);
+        Group::destroy($group->id);
         return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil dihapus');
     }
 }

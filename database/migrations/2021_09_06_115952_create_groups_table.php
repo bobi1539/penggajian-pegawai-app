@@ -17,7 +17,6 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('job_class')->unique();
             $table->double('basic_salary');
-            $table->boolean('is_delete')->default(0);
             $table->timestamps();
         });
     }
