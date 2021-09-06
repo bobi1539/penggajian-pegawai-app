@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +86,10 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        // Group::destroy($group->id);
-        // return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil dihapus');
+        Group::where('id', $group->id)->update([
+            'is_delete' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil dihapus');
     }
 }
