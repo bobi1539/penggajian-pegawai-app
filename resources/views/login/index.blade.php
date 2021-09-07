@@ -12,11 +12,7 @@
                         </div>
                         <div class="card-body">
                             @if (session()->has('messageError'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('messageError') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
+                                <div id="flash-data-error" data-flashdata="{{ session('messageError') }}"></div>
                             @endif
                             <form action="/login" method="POST" autocomplete="on">
                                 @csrf

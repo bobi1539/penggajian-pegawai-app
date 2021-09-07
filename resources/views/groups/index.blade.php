@@ -114,7 +114,7 @@
                         <div class="mb-3">
                             <label for="job_class" class="form-label">Golongan</label>
                             <input name="job_class" type="text" class="form-control" id="job_class_update"
-                                value="{{ old('job_class') }}">
+                                value="{{ old('job_class') }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="basic_salary" class="form-label">Gaji Pokok</label>

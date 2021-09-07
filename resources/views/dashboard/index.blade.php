@@ -14,4 +14,7 @@
             </button> --}}
         </div>
     </div>
+    @if (session()->has('messageSuccess'))
+        <div id="flash-data-success" data-flashdata="{{ session('messageSuccess') }}"></div>
+    @endif
 @endsection
