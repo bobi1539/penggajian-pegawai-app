@@ -47,7 +47,8 @@
                                     Rp. {{ number_format($group->basic_salary, 0, ',', '.') }}
                                 </td>
                                 <td class="text-center">
-                                    <a href="" class="btn btn-sm btn-outline-secondary">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" onclick="handleEditButton({{ $group->id }})">
                                         <span data-feather="edit-2"></span>
                                     </a>
 
@@ -98,11 +99,74 @@
         </div>
     </div>
 
+    <!-- Modal Tambah Data-->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Edit Data Golongan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/groups" method="POST" id="form-update-group">
+                    @method('put')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="job_class" class="form-label">Golongan</label>
+                            <input name="job_class" type="text" class="form-control" id="job_class_update"
+                                value="{{ old('job_class') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="basic_salary" class="form-label">Gaji Pokok</label>
+                            <input name="basic_salary" type="text" class="form-control" id="basic_salary_update"
+                                value="{{ old('basic_salary') }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // number format create data
         const basicSalary = document.getElementById('basic_salary');
 
         basicSalary.addEventListener('keyup', function() {
-            let val = this.value;
+            numberFormatThousands(basicSalary);
+        });
+        // end-------------
+
+        // get upate data--------------------
+        const jobClassUpdate = document.getElementById('job_class_update');
+        const basicSalaryUpdate = document.getElementById('basic_salary_update');
+        const formUpdateGroup = document.getElementById('form-update-group');
+
+
+        function handleEditButton(id) {
+            fetch('/groups/' + id + '/edit')
+                .then(response => response.json())
+                .then(data => {
+                    jobClassUpdate.value = data.group.job_class,
+                        basicSalaryUpdate.value = data.group.basic_salary
+                });
+
+            // mengganti action form update
+            formUpdateGroup.action = "/groups/" + id;
+        }
+
+        basicSalaryUpdate.addEventListener('keyup', function() {
+            numberFormatThousands(basicSalaryUpdate);
+        })
+
+
+
+        // function number format
+        function numberFormatThousands(basicSalary) {
+            let val = basicSalary.value;
             val = val.replace(/[^0-9\.]/g, '');
 
             if (val != "") {
@@ -111,7 +175,7 @@
                 val = valArr.join('.');
             }
 
-            this.value = val;
-        });
+            basicSalary.value = val;
+        }
     </script>
 @endsection

@@ -71,7 +71,9 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        return response()->json([
+            'group' => $group
+        ]);
     }
 
     /**
@@ -83,7 +85,21 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $rules = [
+            'job_class' => ['required', 'max:255'],
+            'basic_salary' => ['required']
+        ];
+
+        if ($request->job_class != $group->job_class) {
+            $rules['job_class'] = ['required', 'max:255', 'unique:groups'];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['basic_salary'] = implode(explode(',', $request->basic_salary));
+
+        Group::where('id', $group->id)->update($validatedData);
+        return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil diubah');
     }
 
     /**
