@@ -21,16 +21,6 @@ class PositionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,17 +39,6 @@ class PositionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Position $position)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Position  $position
@@ -67,7 +46,9 @@ class PositionController extends Controller
      */
     public function edit(Position $position)
     {
-        //
+        return response()->json([
+            'position' => $position
+        ]);
     }
 
     /**
@@ -79,7 +60,19 @@ class PositionController extends Controller
      */
     public function update(Request $request, Position $position)
     {
-        //
+        $rules = [
+            'grade' => ['required', 'max:255'],
+            'positional_allowance' => ['required']
+        ];
+
+        if ($request->grade != $position->grade) {
+            $rules['grade'] = ['required', 'unique:positions'];
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['positional_allowance'] = implode(explode(',', $request->positional_allowance));
+        Position::where('id', $position->id)->update($validatedData);
+        return redirect('/positions')->with('messageSuccess', 'Data jabatan berhasil diubah');
     }
 
     /**

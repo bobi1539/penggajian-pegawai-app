@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function __construct()
-    {
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,16 +18,6 @@ class GroupController extends Controller
             'title' => 'Golongan',
             'groups' => Group::all()
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,17 +37,6 @@ class GroupController extends Controller
         $validatedData['basic_salary'] = implode(explode(',', $request->basic_salary));
         Group::create($validatedData);
         return redirect('/groups')->with('messageSuccess', 'Data golongan berhasil ditambahkan');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Group $group)
-    {
-        //
     }
 
     /**
@@ -91,7 +67,7 @@ class GroupController extends Controller
         ];
 
         if ($request->job_class != $group->job_class) {
-            $rules['job_class'] = ['required', 'max:255', 'unique:groups'];
+            $rules['job_class'] = ['required', 'unique:groups'];
         }
 
         $validatedData = $request->validate($rules);

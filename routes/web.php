@@ -24,7 +24,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::resource('/groups', GroupController::class)->middleware('auth');
+Route::resource('/groups', GroupController::class)->middleware('auth')->except(['create', 'show']);
 
 Route::resource('/positions', PositionController::class)->middleware('auth');
 

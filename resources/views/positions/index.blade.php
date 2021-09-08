@@ -5,7 +5,8 @@
         <h1 class="h2">Data Jabatan</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createModalPosition">
+                <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                    data-bs-target="#createModalPosition">
                     <span data-feather="plus-square"></span> Tambah Data
                 </a>
             </div>
@@ -48,7 +49,8 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#updateModalPosition" onclick="handleEditButton({{ $position->id }})">
+                                        data-bs-target="#updateModalPosition"
+                                        onclick="handleEditButton({{ $position->id }})">
                                         <span data-feather="edit-2"></span>
                                     </a>
 
@@ -81,8 +83,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="grade" class="form-label">Jabatan</label>
-                            <input name="grade" type="text" class="form-control" id="grade"
-                                value="{{ old('grade') }}" required>
+                            <input name="grade" type="text" class="form-control" id="grade" value="{{ old('grade') }}"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="positional_allowance" class="form-label">Tunjangan Jabatan</label>
@@ -100,14 +102,15 @@
     </div>
 
     <!-- Modal Tambah Data-->
-    <div class="modal fade" id="updateModalPosition" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModalPosition" tabindex="-1" aria-labelledby="updateModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="updateModalLabel">Edit Data Jabatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/groups" method="POST" id="form-update-group">
+                <form action="/positions" method="POST" id="form-update-position">
                     @method('put')
                     @csrf
                     <div class="modal-body">
@@ -118,8 +121,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="positional_allowance" class="form-label">Gaji Pokok</label>
-                            <input name="positional_allowance" type="text" class="form-control" id="positional_allowance_update"
-                                value="{{ old('positional_allowance') }}" required>
+                            <input name="positional_allowance" type="text" class="form-control"
+                                id="positional_allowance_update" value="{{ old('positional_allowance') }}" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,25 +144,25 @@
         // end-------------
 
         // get upate data--------------------
-        const jobClassUpdate = document.getElementById('job_class_update');
-        const basicSalaryUpdate = document.getElementById('basic_salary_update');
-        const formUpdateGroup = document.getElementById('form-update-group');
+        const gradeUpdate = document.getElementById('grade_update');
+        const positionalAllowanceUpdate = document.getElementById('positional_allowance_update');
+        const formUpdatePosition = document.getElementById('form-update-position');
 
 
         function handleEditButton(id) {
-            fetch('/groups/' + id + '/edit')
+            fetch('/positions/' + id + '/edit')
                 .then(response => response.json())
                 .then(data => {
-                    jobClassUpdate.value = data.group.job_class,
-                        basicSalaryUpdate.value = data.group.basic_salary
+                    gradeUpdate.value = data.position.grade,
+                        positionalAllowanceUpdate.value = data.position.positional_allowance
                 });
 
             // mengganti action form update
-            formUpdateGroup.action = "/groups/" + id;
+            formUpdatePosition.action = "/positions/" + id;
         }
 
-        basicSalaryUpdate.addEventListener('keyup', function() {
-            numberFormatThousands(basicSalaryUpdate);
+        positionalAllowanceUpdate.addEventListener('keyup', function() {
+            numberFormatThousands(positionalAllowanceUpdate);
         })
     </script>
 @endsection
