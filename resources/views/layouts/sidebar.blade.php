@@ -14,6 +14,12 @@
                     Golongan
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('positions') ? 'active' : '' }}" href="/positions">
+                    <span data-feather="bar-chart-2"></span>
+                    Jabatan
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

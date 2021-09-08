@@ -24,6 +24,22 @@ if (flashDataError){
     }
 }
 
+
+
+// function number format
+function numberFormatThousands(basicSalary) {
+    let val = basicSalary.value;
+    val = val.replace(/[^0-9\.]/g, '');
+
+    if (val != "") {
+        valArr = val.split('.');
+        valArr[0] = (parseInt(valArr[0], 10)).toLocaleString();
+        val = valArr.join('.');
+    }
+
+    basicSalary.value = val;
+}
+
 // function handleButtonDelete(){
 
 //     Swal.fire({

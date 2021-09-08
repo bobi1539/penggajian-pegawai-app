@@ -2,10 +2,10 @@
 
 @section('container-dashboard')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data Golongan</h1>
+        <h1 class="h2">Data Jabatan</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createModal">
+                <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createModalPosition">
                     <span data-feather="plus-square"></span> Tambah Data
                 </a>
             </div>
@@ -16,13 +16,13 @@
             @if (session()->has('messageSuccess'))
                 <div id="flash-data-success" data-flashdata="{{ session('messageSuccess') }}"></div>
             @endif
-            @error('basic_salary')
+            @error('grade')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     {{ $message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @enderror
-            @error('job_class')
+            @error('positional_allowance')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     {{ $message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -33,26 +33,26 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">No</th>
-                            <th scope="col" class="text-center">Golongan</th>
-                            <th scope="col" class="text-center">Gaji Pokok</th>
+                            <th scope="col" class="text-center">Jabatan</th>
+                            <th scope="col" class="text-center">Tunjangan Jabatan</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($groups as $group)
+                        @foreach ($positions as $position)
                             <tr>
                                 <th scope="row" class="text-center">{{ $loop->iteration }}</th>
-                                <td class="text-center">{{ $group->job_class }}</td>
+                                <td class="text-center">{{ $position->grade }}</td>
                                 <td class="text-end">
-                                    Rp. {{ number_format($group->basic_salary, 0, ',', '.') }}
+                                    Rp. {{ number_format($position->positional_allowance, 0, ',', '.') }}
                                 </td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#updateModal" onclick="handleEditButton({{ $group->id }})">
+                                        data-bs-target="#updateModalPosition" onclick="handleEditButton({{ $position->id }})">
                                         <span data-feather="edit-2"></span>
                                     </a>
 
-                                    <form action="/groups/{{ $group->id }}" method="POST" class="d-inline">
+                                    <form action="/positions/{{ $position->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-sm btn-outline-secondary"
@@ -69,25 +69,25 @@
         </div>
     </div>
     <!-- Modal Tambah Data-->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createModalPosition" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Tambah Data Golongan</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambah Data Jabatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/groups" method="POST">
+                <form action="/positions" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="job_class" class="form-label">Golongan</label>
-                            <input name="job_class" type="text" class="form-control" id="job_class"
-                                value="{{ old('job_class') }}" required>
+                            <label for="grade" class="form-label">Jabatan</label>
+                            <input name="grade" type="text" class="form-control" id="grade"
+                                value="{{ old('grade') }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="basic_salary" class="form-label">Gaji Pokok</label>
-                            <input name="basic_salary" type="text" class="form-control" id="basic_salary"
-                                value="{{ old('basic_salary') }}" required>
+                            <label for="positional_allowance" class="form-label">Tunjangan Jabatan</label>
+                            <input name="positional_allowance" type="text" class="form-control" id="positional_allowance"
+                                value="{{ old('positional_allowance') }}" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -100,11 +100,11 @@
     </div>
 
     <!-- Modal Tambah Data-->
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModalPosition" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Edit Data Golongan</h5>
+                    <h5 class="modal-title" id="updateModalLabel">Edit Data Jabatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="/groups" method="POST" id="form-update-group">
@@ -112,14 +112,14 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="job_class" class="form-label">Golongan</label>
-                            <input name="job_class" type="text" class="form-control" id="job_class_update"
-                                value="{{ old('job_class') }}" required>
+                            <label for="grade" class="form-label">Jabatan</label>
+                            <input name="grade" type="text" class="form-control" id="grade_update"
+                                value="{{ old('grade') }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="basic_salary" class="form-label">Gaji Pokok</label>
-                            <input name="basic_salary" type="text" class="form-control" id="basic_salary_update"
-                                value="{{ old('basic_salary') }}" required>
+                            <label for="positional_allowance" class="form-label">Gaji Pokok</label>
+                            <input name="positional_allowance" type="text" class="form-control" id="positional_allowance_update"
+                                value="{{ old('positional_allowance') }}" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -133,10 +133,10 @@
 
     <script>
         // number format create data
-        const basicSalary = document.getElementById('basic_salary');
+        const positionalAllowance = document.getElementById('positional_allowance');
 
-        basicSalary.addEventListener('keyup', function() {
-            numberFormatThousands(basicSalary);
+        positionalAllowance.addEventListener('keyup', function() {
+            numberFormatThousands(positionalAllowance);
         });
         // end-------------
 

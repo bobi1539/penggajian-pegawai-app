@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/groups', GroupController::class)->middleware('auth');
+
+Route::resource('/positions', PositionController::class)->middleware('auth');
 
 Route::get('/check-session', function () {
     dd(session()->all());
