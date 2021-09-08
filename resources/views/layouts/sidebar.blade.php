@@ -20,6 +20,12 @@
                     Jabatan
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('employees*') ? 'active' : '' }}" href="/employees">
+                    <span data-feather="users"></span>
+                    Pegawai
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

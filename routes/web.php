@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PositionController;
@@ -27,6 +28,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::resource('/groups', GroupController::class)->middleware('auth')->except(['create', 'show']);
 
 Route::resource('/positions', PositionController::class)->middleware('auth')->except(['create', 'show']);
+
+Route::resource('/employees', EmployeeController::class)->middleware('auth');
 
 Route::get('/check-session', function () {
     dd(session()->all());
