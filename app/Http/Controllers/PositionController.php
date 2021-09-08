@@ -83,6 +83,7 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        Position::destroy($position->id);
+        return redirect('/positions')->with('messageSuccess', 'Data jabatan berhasil dihapus');
     }
 }

@@ -57,11 +57,21 @@
                                     <form action="/positions/{{ $position->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-secondary"
-                                            onclick="return confirm('Yakin data ingin dihapus?')">
+                                        <button class="btn btn-sm btn-outline-secondary" type="submit"
+                                            onclick="return confirm('Yakin data dihapus?')">
                                             <span data-feather="trash"></span>
                                         </button>
                                     </form>
+
+                                    {{-- <form id="form-delete-position-{{ $position->id }}"
+                                        action="/positions/{{ $position->id }}" method="POST" class="d-inline"
+                                        onsubmit="return handleDeletePosition(event, {{ $position->id }})">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-sm btn-outline-secondary" type="submit">
+                                            <span data-feather="trash"></span>
+                                        </button>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach
