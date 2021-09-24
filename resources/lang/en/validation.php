@@ -136,8 +136,14 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'id_number' => [
+            'unique' => 'NIP sudah tersedia',
+        ],
+        'job_class' => [
+            'unique' => 'Golongan sudah tersedia',
+        ],
+        'grade' => [
+            'unique' => 'Jabatan sudah tersedia',
         ],
     ],
 

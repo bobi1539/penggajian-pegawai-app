@@ -44,7 +44,15 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id_number'             => ['required', 'unique:employees'],
+            'name'                  => ['required', 'max:255'],
+            'group_id'              => ['required'],
+            'position_id'           => ['required'],
+            'number_of_children'    => ['required']
+        ]);
+        Employee::create($validatedData);
+        return redirect('/employees')->with('messageSuccess', 'Data pegawai berhasil ditambahkan');
     }
 
     /**

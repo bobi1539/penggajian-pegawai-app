@@ -40,6 +40,20 @@ function numberFormatThousands(basicSalary) {
     basicSalary.value = val;
 }
 
+function getAlertWarning(message) {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Opps..',
+        text: message,
+        confirmButtonColor: '#191c1f',
+    });
+}
+
+// data table
+$(document).ready( function () {
+    $('#table-employees').DataTable();
+} );
+
 // function handleDeletePosition(event, id){
 //     event.preventDefault();
 
