@@ -97,6 +97,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        Employee::destroy($employee->id);
+        return redirect('/employees')->with('messageSuccess', 'Data pegawai berhasil dihapus');
     }
 }
